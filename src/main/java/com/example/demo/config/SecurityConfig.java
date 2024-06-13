@@ -59,7 +59,7 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/oauth2/**", "/login/**").permitAll()
+                .requestMatchers("/oauth2/**", "/auth/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/users").permitAll() // 사용자 생성은 모든 사용자에게 허용
                 .requestMatchers("/users/**").hasAnyRole("USER", "ADMIN") // 인증된 사용자만 접근 가능
                 .requestMatchers("/admin/**").hasRole("ADMIN") // 인증된 사용자만 접근 가능

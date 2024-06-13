@@ -28,16 +28,14 @@ public class AuthController {
     @PostMapping("/login")
     public Map<String, String> login(@RequestBody Map<String, String> credentials) {
 
-        String username = credentials.get("username");
+        String name = credentials.get("name");
         String password = credentials.get("password");
-        System.out.println(username);
-        System.out.println(password);
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(name, password));
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String token = jwtTokenProvider.createToken(userDetails.getUsername(), userDetails.getAuthorities().iterator().next().getAuthority());
 
         Map<String, String> response = new HashMap<>();
-        response.put("username", username);
+        response.put("name", name);
         response.put("token", token);
 
         return response;
