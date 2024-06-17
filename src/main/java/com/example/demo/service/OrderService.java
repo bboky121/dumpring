@@ -33,13 +33,13 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    @Cacheable(value = "orders", key = "#orderId")
+    @Cacheable(value = "orders", key = "#id")
     public List<Product> getProductsByOrderId(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order not found"));
         return order.getProducts();
     }
 
-    @Cacheable(value = "ordersTotals", key = "#orderID")
+    @Cacheable(value = "ordersTotals", key = "#id")
     public BigDecimal getTotalAmountByOrderId(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order not found"));
         return order.getTotalAmount();
