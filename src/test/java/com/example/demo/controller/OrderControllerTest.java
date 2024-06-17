@@ -54,7 +54,7 @@ public class OrderControllerTest {
 
         Mockito.when(orderService.createOrder(Mockito.anyList())).thenReturn(order);
         Mockito.when(orderService.getProductsByOrderId(1L)).thenReturn(Arrays.asList(product1, product2));
-        Mockito.when(orderService.getTotalAmountByOrderId(1L)).thenReturn(new BigDecimal("30.00"));
+        Mockito.when(orderService.getTotalAmountByOrderId(1L)).thenReturn(new BigDecimal("30"));
     }
 
     @Test
