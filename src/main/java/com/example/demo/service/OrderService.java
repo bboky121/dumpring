@@ -5,6 +5,7 @@ import com.example.demo.entity.Product;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -32,11 +33,13 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
+    @Cacheable(value = "orders", key = "#orderId")
     public List<Product> getProductsByOrderId(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order not found"));
         return order.getProducts();
     }
 
+    @Cacheable(value = "ordersTotals", key = "#orderID")
     public BigDecimal getTotalAmountByOrderId(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order not found"));
         return order.getTotalAmount();
